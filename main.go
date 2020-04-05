@@ -7,11 +7,22 @@ import (
 )
 
 func main() {
-	list := linkedlists.MakeSingleLL(20)
+	list := linkedlists.InitSLL(20)
 	list.SingleLLAppend(40)
 	list.SingleLLAppend(50)
 	list.SingleLLAppend(60)
 	list.SingleLLAppend(70)
-	fmt.Println(list)
-	fmt.Println(list.SingleLLTail())
+	list.SingleLLAppend(80)
+	list.SingleLLAppend(90)
+
+	for l := &list; l != nil; l = l.Next {
+		fmt.Println(l)
+	}
+	fmt.Println()
+
+	list.SingleLLDelete(0)
+	for l := &list; l != nil; l = l.Next {
+		fmt.Printf("Next to %v is %v\n", l, l.NextNode())
+	}
+
 }
