@@ -2,20 +2,28 @@
 
 package linkedlists
 
+// Node is a node in DLL
 type Node struct {
+	// next and prev are pointers to next, prev nodes.
 	next, prev *Node
-	value      interface{}
+	// value is the value of the node
+	value interface{}
 }
 
+// DoubleList is a list that's made of Node(s)
 type DoubleList struct {
+	// head and tail represent the begnning and ending node of the list.
 	head, tail *Node
-	size       int
+	// size represents the total number of nodes in the list.
+	size int
 }
 
+// MakeList returns an empty DoubleList
 func MakeList() *DoubleList {
 	return &DoubleList{}
 }
 
+// AddBack adds elements at the end(Tail) of the list.
 func (d *DoubleList) AddBack(data interface{}) {
 	newElement := &Node{value: data, prev: d.tail}
 
@@ -30,6 +38,7 @@ func (d *DoubleList) AddBack(data interface{}) {
 	d.size++
 }
 
+// AddFront adds elements at the beginning(Head) of the list.
 func (d *DoubleList) AddFront(data interface{}) {
 	newElement := &Node{value: data, next: d.head}
 
@@ -43,6 +52,7 @@ func (d *DoubleList) AddFront(data interface{}) {
 	d.size++
 }
 
+// Remove removes a Node from the list at the given index.
 func (d *DoubleList) Remove(index int) interface{} {
 	var value interface{}
 	var counter int
@@ -76,14 +86,18 @@ func (d *DoubleList) Remove(index int) interface{} {
 	}
 
 }
+
+// PeekFront returns the Head node of the list.
 func (d *DoubleList) PeekFront() *Node {
 	return d.head
 }
 
+// PeekBack returns the Tail node of the list.
 func (d *DoubleList) PeekBack() *Node {
 	return d.tail
 }
 
+// Len returns the length of the list.
 func (d *DoubleList) Len() int {
 	return d.size
 }
