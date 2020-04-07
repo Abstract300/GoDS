@@ -69,35 +69,72 @@ func (d *DoubleList) Remove(index int) interface{} {
 		counter++
 	}
 
-	if elem == d.head {
-		d.head = d.head.next
-		d.head.prev = nil
-		return elem.value
+	if elem == d.head && elem == d.tail {
+
+		d.head = nil
+		d.tail = nil
+		d.size--
+		return value
+
+	} else if elem == d.head {
+		val := elem.value
+
+		front := elem.next
+		front.prev = nil
+		elem = nil
+		d.head = front
+		d.size--
+		return val
 
 	} else if elem == d.tail {
-		d.tail = d.tail.prev
-		d.tail.next = nil
-		return elem.value
+		val := elem.value
+
+		back := elem.prev
+		back.next = nil
+		d.tail = back
+		d.size--
+		return val
 
 	} else {
-		elem.prev.next = elem.next
-		elem.next = elem.prev
-		return elem.value
+		val := elem.value
+		back := elem.prev
+		front := elem.next
+		back.next = elem.next
+		front.prev = elem.prev
+		elem = nil
+		d.size--
+		return val
 	}
 
 }
 
 // PeekFront returns the Head node of the list.
-func (d *DoubleList) PeekFront() *Node {
-	return d.head
+func (d *DoubleList) PeekFront() interface{} {
+	if d.size == 0 {
+		return nil
+	}
+	return d.head.value
 }
 
 // PeekBack returns the Tail node of the list.
-func (d *DoubleList) PeekBack() *Node {
-	return d.tail
+func (d *DoubleList) PeekBack() interface{} {
+	if d.size == 0 {
+		return nil
+	}
+	return d.tail.value
 }
 
 // Len returns the length of the list.
 func (d *DoubleList) Len() int {
 	return d.size
 }
+
+/* To be used only in development environment.
+func (d *DoubleList) Iterate() {
+
+	fmt.Println("Size: ", d.size)
+	for l := d.head; l != nil; l = l.next {
+		fmt.Println(l)
+	}
+}
+*/
